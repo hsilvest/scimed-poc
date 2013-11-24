@@ -85,6 +85,6 @@ def upload_file():
         return image_detect('db/' + f.filename)
 
 if __name__ == '__main__':
-	app.run(debug=True)
+	app.run(host='0.0.0.0')
 
 
