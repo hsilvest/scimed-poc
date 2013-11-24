@@ -10,30 +10,23 @@ from flask import *
 
 app = Flask(__name__)
 
-@app.route('/')
-def hello_world():
-	url_for('static', filename='style.css')
-	return render_template('index.html', name="teste")
-
-
-if __name__ == '__main__':
-	app.debug = True
-	app.run()
+def compare_values(num1,num2):
+	if num1 >= num2:
+		return num1 - num2
+	else:
+		return num2 - num1
 
 def image_detect(file):
 	# 255 white
 	# 0 black
-
-	# for filename in os.listdir('images'):
-	# img = cv2.imread('images/'+filename,0)
-	img = file
+	img = cv2.imread(file, 0)
 	new_img = cv2.resize(img,(600,700))
 
 	x,y = img.shape
 
 	filtered_img = scipy.misc.imfilter(img,'blur')
 
-
+	
 	i = 0
 	while i < int(x * 0.01):
 		filtered_img = scipy.misc.imfilter(filtered_img,'blur')
@@ -61,10 +54,37 @@ def image_detect(file):
 			thresh2[i][::-1][np.where(thresh2[i][::-1] == b)[0][0]] = 0
 		i += 1
 
-	# print filename + "- (X:%i,Y:%i)" % ndimage.measurements.center_of_mass(thresh2, label)
+	val_x,val_y = ndimage.measurements.center_of_mass(thresh2, label)
+
+	resultado = int(compare_values(val_x,val_y))
+
+	print resultado
+
+	if resultado >= 100:
+		return render_template('index.html', diag ='Doente')
+	else:
+		return render_template('index.html', diag ='Sadio')
+
+	#return "(X:%i,Y:%i)" % ndimage.measurements.center_of_mass(thresh2, label)
 	# print qtd
 
 	# plt.imshow(thresh2, cmap=plt.cm.gray)
 	# plt.show()
+
+@app.route('/')
+def hello_world():
+	return render_template('index.html', name="teste")
+
+@app.route('/upload', methods=['GET', 'POST'])
+def upload_file():
+    print 'upload_file'
+    if request.method == 'POST':
+        print 'post'
+        f = request.files['image']
+        f.save('db/' + f.filename)
+        return image_detect('db/' + f.filename)
+
+if __name__ == '__main__':
+	app.run(debug=True)
 
 

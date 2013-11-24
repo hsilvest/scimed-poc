@@ -1,1 +1,35 @@
-testess
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Flask</title>   
+    <strong><link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"></strong>
+  </head>
+  <body>
+  <form action="http://127.0.0.1:5000/upload" method="post" enctype="multipart/form-data">
+    <header>
+      <div class="container">
+        <h1 class="logo">Identificando Doenças</h1>
+      </div>
+     </header>
+    <div class="container">
+	    <div class="jumbo">
+		    <h2>Bem vindo ao Sistema<h2>
+		    <h3>Selecione uma imagem para analisar <br> e clique em processar<h3>
+		    <input type="file" name="image">
+		    <input type="submit" value="Analisar Imagem"><br/>
+		    <br/>
+
+		    {% if diag %}
+		    	{% if diag == 'Doente' %}
+		    	 	<h2 class='Doente'> {{ diag }}</h2>
+		    	{% endif %}
+
+		    	{% if diag == 'Sadio' %}
+		    	 	<h2 class='Sadio'> {{ diag }}</h2>
+		    	{% endif %}
+		    {% endif %}
+	  	</div>
+    </div>
+    </form>
+  </body>
+</html>

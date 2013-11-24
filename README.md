@@ -1,4 +1,4 @@
 scimed-poc
 ==========
 
-python script to detect atelectasias desease from a x-ray image
+python script to detect deseases from a x-ray image
