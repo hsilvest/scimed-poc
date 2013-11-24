@@ -1,30 +1,34 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Flask</title>   
+    <title>Bem vindo ao Sistema de Detecção de Patologias Pulmonares. </title>   
     <strong><link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"></strong>
   </head>
   <body>
-  <form action="http://192.168.0.13:5000/upload" method="post" enctype="multipart/form-data">
+  <form action="http://192.168.0.16:5000/upload" method="post" enctype="multipart/form-data">
     <header>
       <div class="container">
-        <h1 class="logo">Identificando Doenças</h1>
+      <h1 class="logo">Software Detector de Patologias Pulmonares</h1>
       </div>
      </header>
     <div class="container">
 	    <div class="jumbo">
 		    <h2>Bem vindo ao Sistema<h2>
-		    <h3>Selecione uma imagem para analisar <br> e clique em processar<h3>
-		    <input type="file" name="image">
-		    <input type="submit" value="Analisar Imagem"><br/>
+		    <h3 id="res">Selecione uma imagem para analisar,<br>clique em processar e aguarde.<h3>
+		    <input type="file" name="image" value="Selecionar">
+		    <input type="submit" value="Processar"><br/>
 		    <br/>
 
 		    {% if diag %}
 		    	{% if diag == 'Doente' %}
+		    	<script type="text/javascript">
+		    	document.title = "Processamento Finalizado. O pulmão analisado está fora dos padrões esperado, possivel patologia detectada."</script>
 		    	 	<h2 class='Doente'> {{ diag }}</h2>
 		    	{% endif %}
 
 		    	{% if diag == 'Sadio' %}
+		    	<script type="text/javascript">
+		    	document.title = "Processamento Finalizado. O pulmão analisado está dentro dos padrões esperado, nenhuma patologia detectada. "</script>
 		    	 	<h2 class='Sadio'> {{ diag }}</h2>
 		    	{% endif %}
 		    {% endif %}
