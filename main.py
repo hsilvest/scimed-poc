@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Author: Henrique Silvestre Souza
 import sys
 import cv2
@@ -61,9 +62,9 @@ def image_detect(file):
 	print resultado
 
 	if resultado >= 100:
-		return render_template('index.html', diag ='Doente')
+		return render_template('index.html', diag = 'Patologia Detectada'.decode('utf8'))
 	else:
-		return render_template('index.html', diag ='Sadio')
+		return render_template('index.html', diag = 'Patologia Não Detectada'.decode('utf8'))
 
 	#return "(X:%i,Y:%i)" % ndimage.measurements.center_of_mass(thresh2, label)
 	# print qtd

@@ -1,11 +1,25 @@
 <!DOCTYPE html>
-<html>
+<html charset="utf-8">
   <head>
     <title>Bem vindo ao Sistema de Detecção de Patologias Pulmonares. </title>   
-    <strong><link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"></strong>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script type="text/javascript" src="{{ url_for('static', filename='js/jquery-2.0.3.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/script.js') }}"></script>
+    <script type="text/javascript">
+    $(function(){
+    	$('#progressBar').hide()
+    	$('#btnSubmit').click(function () {
+    		progressBar(0, $('#progressBar'))
+    		$('#progressBar').show();
+    		for (var x = 0; x <= 100; x += 2){
+    			progressBar(x, $('#progressBar'));
+    		}
+    	})
+    });
+    </script>
   </head>
   <body>
-  <form action="http://192.168.0.16:5000/upload" method="post" enctype="multipart/form-data">
+  <form action="http://192.168.50.71:5000/upload" method="post" enctype="multipart/form-data">
     <header>
       <div class="container">
       <h1 class="logo">Software Detector de Patologias Pulmonares</h1>
@@ -16,23 +30,30 @@
 		    <h2>Bem vindo ao Sistema<h2>
 		    <h3 id="res">Selecione uma imagem para analisar,<br>clique em processar e aguarde.<h3>
 		    <input type="file" name="image" value="Selecionar">
-		    <input type="submit" value="Processar"><br/>
+		    <input id="btnSubmit" type="submit" value="Processar"><br/>
 		    <br/>
-
 		    {% if diag %}
-		    	{% if diag == 'Doente' %}
+		    	{% if diag == 'Patologia Detectada' %}
 		    	<script type="text/javascript">
-		    	document.title = "Processamento Finalizado. O pulmão analisado está fora dos padrões esperado, possivel patologia detectada."</script>
+		    	document.title = "Processamento Finalizado. O pulmão analisado está fora dos padrões esperado, possivel patologia detectada.";
+				alert("Processamento Finalizado. \nO pulmão analisado está fora dos padrões esperado. Possivel patologia detectada.")
+		    	$('#progressBar').hide();
+		    	</script>
 		    	 	<h2 class='Doente'> {{ diag }}</h2>
 		    	{% endif %}
 
-		    	{% if diag == 'Sadio' %}
+		    	{% if diag == 'Patologia Não Detectada' %}
 		    	<script type="text/javascript">
-		    	document.title = "Processamento Finalizado. O pulmão analisado está dentro dos padrões esperado, nenhuma patologia detectada. "</script>
+		    	document.title = "Processamento Finalizado. O pulmão analisado está dentro dos padrões esperado, nenhuma patologia detectada.";
+		    	alert("Processamento Finalizado. \nO pulmão analisado está dentro dos padrões esperado, nenhuma patologia detectada.")
+		    	$('#progressBar').hide();
+		    	</script>
 		    	 	<h2 class='Sadio'> {{ diag }}</h2>
 		    	{% endif %}
 		    {% endif %}
+		    <div id="progressBar" class="big-green"><div></div></div>
 	  	</div>
+	  	
     </div>
     </form>
   </body>
