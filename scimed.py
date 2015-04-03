@@ -78,12 +78,10 @@ def hello_world():
 
 @app.route('/upload', methods=['GET', 'POST'])
 def upload_file():
-    print 'upload_file'
     if request.method == 'POST':
-        print 'post'
         f = request.files['image']
-        f.save('db/' + f.filename)
-        return image_detect('db/' + f.filename)
+       	f.save(app.root_path + '/db/' + f.filename)
+       	return image_detect(app.root_path + '/db/' + f.filename)
 
 if __name__ == '__main__':
 	app.run(host='0.0.0.0',debug=True)
