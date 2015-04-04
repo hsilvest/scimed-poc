@@ -1,6 +1,15 @@
 /*
  * Globals
  */
+
+.bootbox-body {
+  color: black;
+  font-family: Consolas;
+  text-shadow: none;
+  font-size: 20px;
+}
+
+
 h2.Sadio {
   font-size: 3em;
   margin-top: 40px;

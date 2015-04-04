@@ -97,7 +97,7 @@ def upload_file():
        		f.save(app.root_path + '/db/' + filename)
 	       	return image_detect(app.root_path + '/db/' + filename)
 	else:
-		return render_template('index.html', diag = 'Formato não permitido, utilize JPG, JPEG ou PNG'.decode('utf8'))
+		return render_template('index.html', ex  = 'FormatException')
 
 if __name__ == '__main__':
 	app.run(host='0.0.0.0',debug=True)
