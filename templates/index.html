@@ -22,70 +22,65 @@
 </head>
 
 <body>
-<form action="./upload" method="post" enctype="multipart/form-data">
     <div class="site-wrapper">
+        <div class="site-wrapper-inner">
+            <div class="cover-container">
+                <div class="masthead clearfix">
+                    <div class="inner">
+                        <h3 class="masthead-brand">SCIMED</h3>
+                        <nav>
+                            <ul class="nav masthead-nav">
+                                <li class="active"><a href="{{ url_for('static', filename='templates/index.html') }}">Início</a></li>
+                                <li><a href="{{ url_for('static', filename='templates/about.html') }}">Sobre</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
 
-    <div class="site-wrapper-inner">
+                <div class="inner cover">
+                    <form action="./upload" method="post" enctype="multipart/form-data">
+                    <h1 class="cover-heading">Software de Detecção de Doenças Pulmonares.</h1>
+                    <p class="lead">Selecione uma imagem em seu disco, clique em processar e aguarde.</p>
+                    <p class="lead">
+                        <input class="center-block" type="file" name="image" value="Selecionar">
+                    </p>
+                    <p class="lead">
+                        <input class="btn btn-lg btn-primary" id="btnSubmit" type="submit" value="Processar">
+                    </p>
+                    {% if diag %}
+                    {% if diag == 'Patologia Detectada' %}
+                    <script type="text/javascript">
+                        document.title = "Processamento Finalizado. O pulmão analisado está fora dos padrões esperado, possivel patologia detectada.";
+                        alert("Processamento Finalizado. \nO pulmão analisado está fora dos padrões esperado. Possivel patologia detectada.")
+                        $('#progressBar').hide();
+                    </script>
+                    <h2 class='Doente'> {{ diag }}</h2>
+                    {% endif %}
 
-        <div class="cover-container">
+                    {% if diag == 'Patologia Não Detectada' %}
+                    <script type="text/javascript">
+                        document.title = "Processamento Finalizado. O pulmão analisado está dentro dos padrões esperado, nenhuma patologia detectada.";
+                        alert("Processamento Finalizado. \nO pulmão analisado está dentro dos padrões esperado, nenhuma patologia detectada.")
+                        $('#progressBar').hide();
+                    </script>
+                    <h2 class='Sadio'> {{ diag }}</h2>
+                    {% endif %}
+                    {% endif %}
+                    <div id="progressBar" class="big-green">
+                        <div>
+                        </div>
+                    </div>
+                    </form>
+                </div>
 
-            <div class="masthead clearfix">
-                <div class="inner">
-                    <h3 class="masthead-brand">SCIMED</h3>
-                    <nav>
-                        <ul class="nav masthead-nav">
-                            <li class="active"><a href="templates/index.html">Início</a></li>
-                            <li><a href="templates/about.html">Sobre</a></li>
-                        </ul>
-                    </nav>
+                <div class="mastfoot">
+                    <div class="inner">
+                        <p>Projeto disponivel no Github, em <a href="https://github.com/hsilvest/scimed-poc">Scimed</a>.</p>
+                    </div>
                 </div>
             </div>
-
-            <div class="inner cover">
-                <h1 class="cover-heading">Software de Detecção de Doenças Pulmonares.</h1>
-                <p class="lead">Selecione uma imagem em seu disco, clique em processar e aguarde.</p>
-                <p class="lead">
-                    <input class="center-block" type="file" name="image" value="Selecionar">
-                </p>
-                <p class="lead">
-                    <input class="btn btn-lg btn-primary" id="btnSubmit" type="submit" value="Processar">
-                </p>
-            </div>
-            {% if diag %}
-            {% if diag == 'Patologia Detectada' %}
-            <script type="text/javascript">
-                document.title = "Processamento Finalizado. O pulmão analisado está fora dos padrões esperado, possivel patologia detectada.";
-                alert("Processamento Finalizado. \nO pulmão analisado está fora dos padrões esperado. Possivel patologia detectada.")
-                $('#progressBar').hide();
-            </script>
-            <h2 class='Doente'> {{ diag }}</h2>
-            {% endif %}
-
-            {% if diag == 'Patologia Não Detectada' %}
-            <script type="text/javascript">
-                document.title = "Processamento Finalizado. O pulmão analisado está dentro dos padrões esperado, nenhuma patologia detectada.";
-                alert("Processamento Finalizado. \nO pulmão analisado está dentro dos padrões esperado, nenhuma patologia detectada.")
-                $('#progressBar').hide();
-            </script>
-            <h2 class='Sadio'> {{ diag }}</h2>
-            {% endif %}
-            {% endif %}
-            <div id="progressBar" class="big-green">
-                <div>
-                </div>
-            </div>
-
-            <div class="mastfoot">
-                <div class="inner">
-                    <p>Projeto disponivel no Github, em <a href="https://github.com/hsilvest/scimed-poc">Scimed</a>.</p>
-                </div>
-            </div>
-
         </div>
-
     </div>
-        </div>
-</form>
 
 <!-- Bootstrap core JavaScript
 ================================================== -->
@@ -94,4 +89,3 @@
 <script type="text/javascript" src="{{ url_for('static', filename='js/app.js') }}"></script>
 </body>
 </html>
-
