@@ -80,8 +80,13 @@ def image_detect(file):
 	# plt.show()
 
 @app.route('/')
-def hello_world():
-	return render_template('index.html', name="SCIMED")
+@app.route('/inicio')
+def start():
+	return render_template('index.html', name="inicio")
+
+@app.route('/sobre')
+def sobre():
+	return render_template('about.html', name="sobre")
 
 @app.route('/upload', methods=['GET', 'POST'])
 def upload_file():

@@ -31,7 +31,7 @@
                         <nav>
                             <ul class="nav masthead-nav">
                                 <li class="active"><a href="{{ url_for('static', filename='templates/index.html') }}">Início</a></li>
-                                <li><a href="templates/about.html">Sobre</a></li>
+                                <li><a href="{{ url_for('static', filename='templates/about.html') }}">Sobre</a></li>
                             </ul>
                         </nav>
                     </div>
